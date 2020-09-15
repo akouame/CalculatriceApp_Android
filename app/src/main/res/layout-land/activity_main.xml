@@ -6,37 +6,139 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/result"
+        app:layout_constraintVertical_bias="0.6">
+
+        <Button
+            android:id="@+id/modulo_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/modulo"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/equal_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/equal"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:contentDescription="@string/clear_description"
+            android:src="@drawable/ic_baseline_backspace_24" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reset"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/result">
+
+        <Button
+            android:id="@+id/subtract_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/subtract"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/multiply_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/multiply"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/divide_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/divide"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
     <EditText
         android:id="@+id/result"
         android:layout_width="0dp"
-        android:layout_height="217dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:autofillHints="0"
-        android:hint="@string/zero"
         android:enabled="false"
         android:gravity="end"
         android:inputType="none"
+        android:hint="@string/zero"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result">
 
         <GridLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:columnCount="3"
-            android:rowCount="5"
+            android:rowCount="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,129 +235,43 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/zero_button"
+                android:id="@+id/dot_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_row="3"
                 android:layout_rowWeight="1"
                 android:layout_column="1"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:text="@string/dot"
+                android:textSize="34sp" />
+
+            <Button
+                android:id="@+id/zero_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_row="3"
+                android:layout_rowWeight="1"
+                android:layout_column="0"
                 android:layout_margin="10dp"
                 android:background="@android:color/transparent"
                 android:text="@string/zero"
                 android:textSize="24sp" />
 
             <Button
-                android:id="@+id/dot_button"
+                android:id="@+id/negative_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_row="3"
                 android:layout_rowWeight="1"
                 android:layout_column="2"
-                android:layout_margin="10dp"
-                android:background="@android:color/transparent"
-                android:text="@string/dot"
-                android:textSize="34sp" />
-
-            <ImageButton
-                android:id="@+id/delete_button"
-                android:layout_width="87dp"
-                android:layout_row="4"
-                android:layout_rowWeight="1"
-                android:layout_column="1"
-                android:layout_margin="10dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/clear_description"
-                android:src="@drawable/ic_baseline_backspace_24"
-                tools:ignore="UnusedAttribute" />
-
-            <Button
-                android:id="@+id/modulo_button"
-                android:layout_width="87dp"
-                android:layout_row="4"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_margin="10dp"
-                android:background="@android:color/transparent"
-                android:text="@string/modulo"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/negative_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
                 android:layout_margin="10dp"
                 android:background="@android:color/transparent"
                 android:text="@string/negative_number"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/reset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="4"
-                android:layout_rowWeight="1"
-                android:layout_column="2"
-                android:layout_margin="10dp"
-                android:background="@android:color/transparent"
-                android:text="@string/reset"
                 android:textSize="24sp" />
 
 
         </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/result">
-
-        <Button
-            android:id="@+id/divide_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/divide"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/add_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/add"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/multiply_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/multiply"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/subtract_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/subtract"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/equal_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/blue"
-            android:text="@string/equal"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

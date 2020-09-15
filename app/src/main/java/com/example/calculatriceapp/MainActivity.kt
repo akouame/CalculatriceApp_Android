@@ -2,6 +2,7 @@ package com.example.calculatriceapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -9,6 +10,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+    companion object {
+        const val EDITTEXT_CONTENT: String = "Edit_content"
+    }
     private val TAG = "MainActivity"
     var resultEditText: EditText? = null
     private var oneButton: Button? = null
@@ -25,10 +29,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var divideButton: Button? = null
     private var multiplyButton: Button? = null
     private var equalButton: Button? = null
+    private var moduloButton: Button? = null
     private var dotButton: Button? = null
     private var deleteButton: ImageButton? = null
     private var resetButton: Button? = null
-    var operators: List<Char> = listOf('/', '*', '+', '-')
+    private var operators: List<Char> = listOf('/', '*', '+', '-', '%')
 
     var nineButton: Button? = null
     private var result: String = ""
@@ -56,6 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         dotButton = findViewById(R.id.dot_button)
         deleteButton = findViewById(R.id.delete_button)
         resetButton = findViewById(R.id.reset)
+        moduloButton = findViewById(R.id.modulo_button)
 
 
         resultEditText?.setOnClickListener(this)
@@ -78,6 +84,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         dotButton?.setOnClickListener(this)
         resetButton?.setOnClickListener(this)
         deleteButton?.setOnClickListener(this)
+        moduloButton?.setOnClickListener(this)
+
+        // If we have a saved state then we can restore it now
+        if (savedInstanceState != null) {
+            result = savedInstanceState.getString(EDITTEXT_CONTENT, "")
+        }
+
+        resultEditText?.setText(result)
     }
 
     override fun onClick(v: View?) {
@@ -97,8 +111,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.six_button,
             R.id.seven_button,
             R.id.eight_button,
-            R.id.nine_button,
-            R.id.dot_button-> {
+            R.id.nine_button -> {
                 result += (findViewById<Button>(v.id)).text
                 resultEditText?.setText(result)
             }
@@ -113,14 +126,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 resultEditText?.setText(result)
             }
 
-            R.id.add_button, R.id.subtract_button, R.id.multiply_button, R.id.divide_button, R.id.equal_button -> {
+            R.id.add_button,
+            R.id.subtract_button,
+            R.id.multiply_button,
+            R.id.divide_button,
+            R.id.equal_button,
+            R.id.modulo_button,
+            R.id.dot_button -> {
                 val operator: String = (findViewById<Button>(v.id)).text.toString()
+                if (result.isEmpty()) return
 
                 val resultLength = result.length - 1
-                if (resultLength < 0) return
+                val lastChar = result[resultLength]
 
-                if (result[resultLength].isAnOperator() && operator != "=") {
-                    replaceChar(resultLength, operator[0])
+                if (lastChar.isAnOperator()) {
+                    if (operator != "=") replaceChar(resultLength, operator[0])
+                    else return
                 } else {
                     val operatorsInResult = operators.filter { result.contains(it) }
 
@@ -136,14 +157,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                                     (leftOperand - rightOperand).toString()
                                 '*' -> result =
                                     (leftOperand * rightOperand).toString()
-                                '/' -> result =
-                                    (leftOperand / rightOperand).toString()
+                                '/' -> {
+                                    result = if (rightOperand == 0f)
+                                        "Cannot divide by zero"
+                                    else
+                                        (leftOperand / rightOperand).toString()
+                                }
                                 '%' -> result =
                                     (leftOperand % rightOperand).toString()
                             }
-
-                            result += if (operator != "=") operator else ""
+                            //Remove decimal part of float numbers ending by .0
                             if (result.endsWith(".0")) result = result.dropLast(2)
+                            result += if (operator != "=") operator else ""
                             resultEditText?.setText(result)
                         }
                     } else {
@@ -163,6 +188,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun Char.isAnOperator(): Boolean {
         return this in operators
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(EDITTEXT_CONTENT, result)
+    }
+
+    //TODO Gérer le signe négatif
 }
 
 
